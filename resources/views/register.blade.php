@@ -10,9 +10,34 @@
     <form action="{{ route('register.store') }}" method="POST">
         @csrf
 
-        <input type="text" name="name" placeholder="Name">
-        <input type="email" name="email" placeholder="Email">
-        <input type="password" name="password" placeholder="Password">
+        <input type="text" name="name" placeholder="Name" required>
+
+        @error('name')
+            <p style="color: red;">{{ $message }}</p>
+        @enderror
+
+        <br>
+
+        <input type="email" name="email" placeholder="Email" required>
+
+        @error('email')
+            <p style="color: red;">{{ $message }}</p>
+        @enderror
+
+        <br>
+
+        <input type="password" name="password" placeholder="Password" required>
+
+        @error('password')
+            <p style="color: red;">{{ $message }}</p>
+        @enderror
+
+        <br>
+
+        <input type="password" name="password_confirmation" placeholder="Confirm Password" required>
+
+        <br>
+
         <button type="submit">Register</button>
     </form>
 </body>
