@@ -71,6 +71,6 @@ class BlogResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->orderBy('updated_at', 'desc');
+        return parent::getEloquentQuery()->where('is_published', true)->orderBy('updated_at', 'desc');
     }
 }
