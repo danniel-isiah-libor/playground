@@ -18,7 +18,8 @@ class BlogForm
                     ->maxLength(255),
 
                 RichEditor::make('content')
-                    ->required(),
+                    ->required()
+                    ->fileAttachmentsDirectory('blogs'),
             ]);
     }
 }

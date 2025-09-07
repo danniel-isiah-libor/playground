@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Blogs\Pages;
 use App\Filament\Resources\Blogs\BlogResource;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
+use Kirschbaum\Commentions\Filament\Actions\CommentsAction;
 
 class ViewBlog extends ViewRecord
 {
@@ -14,6 +15,8 @@ class ViewBlog extends ViewRecord
     {
         return [
             EditAction::make(),
+
+            CommentsAction::make(),
         ];
     }
 }

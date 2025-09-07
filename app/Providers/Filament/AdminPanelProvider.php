@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\CustomLogin;
+use App\Http\Middleware\AdminMiddleware;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -26,7 +28,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->id('admin')
             ->path('admin')
-            ->login()
+            ->login(action: CustomLogin::class)
             ->profile(isSimple: false)
             ->colors([
                 'primary' => Color::Amber,
@@ -46,6 +48,7 @@ class AdminPanelProvider extends PanelProvider
                 AddQueuedCookiesToResponse::class,
                 StartSession::class,
                 AuthenticateSession::class,
+                AdminMiddleware::class,
                 ShareErrorsFromSession::class,
                 VerifyCsrfToken::class,
                 SubstituteBindings::class,
@@ -54,6 +57,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+                // AdminMiddleware::class,
             ]);
+        // ->viteTheme('resources/css/filament/admin/theme.css');
     }
 }

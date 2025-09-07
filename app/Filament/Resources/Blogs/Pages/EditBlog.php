@@ -8,6 +8,7 @@ use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
+use Kirschbaum\Commentions\Filament\Actions\CommentsAction;
 
 class EditBlog extends EditRecord
 {
@@ -20,6 +21,8 @@ class EditBlog extends EditRecord
             DeleteAction::make(),
             ForceDeleteAction::make(),
             RestoreAction::make(),
+
+            CommentsAction::make(),
         ];
     }
 }

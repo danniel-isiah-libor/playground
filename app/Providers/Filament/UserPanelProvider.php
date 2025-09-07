@@ -2,6 +2,11 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\User\Pages\Newsfeed;
+use App\Filament\User\Pages\UserProfile;
+use App\Filament\User\Resources\Blogs\Pages\ManageBlogs;
+use Filament\Auth\MultiFactor\App\AppAuthentication;
+use Filament\Auth\MultiFactor\Email\EmailAuthentication;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -28,20 +33,21 @@ class UserPanelProvider extends PanelProvider
             ->id('user')
             ->path('/')
             ->login()
-            ->profile(isSimple: false)
+            ->profile(isSimple: false, page: UserProfile::class)
             ->registration()
+            ->emailVerification()
+            ->emailChangeVerification()
             ->colors([
                 'primary' => Color::Amber,
             ])
             ->discoverResources(in: app_path('Filament/User/Resources'), for: 'App\Filament\User\Resources')
             ->discoverPages(in: app_path('Filament/User/Pages'), for: 'App\Filament\User\Pages')
             ->pages([
-                Dashboard::class,
+                //
             ])
             ->discoverWidgets(in: app_path('Filament/User/Widgets'), for: 'App\Filament\User\Widgets')
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
+                //
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -56,6 +62,13 @@ class UserPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->multiFactorAuthentication([
+                AppAuthentication::make()
+                    ->recoverable(),
+
+                EmailAuthentication::make(),
             ]);
+        // ->viteTheme('resources/css/filament/user/theme.css');
     }
 }

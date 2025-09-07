@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Kirschbaum\Commentions\Contracts\Commentable;
+use Kirschbaum\Commentions\HasComments;
 
-class Blog extends Model
+class Blog extends Model implements Commentable
 {
-    use SoftDeletes, HasFactory;
+    use SoftDeletes, HasFactory, HasComments;
 
     protected $fillable = [
         'user_id',
