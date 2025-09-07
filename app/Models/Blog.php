@@ -10,7 +10,7 @@ use Kirschbaum\Commentions\HasComments;
 
 class Blog extends Model implements Commentable
 {
-    use SoftDeletes, HasFactory, HasComments;
+    use HasComments, HasFactory, SoftDeletes;
 
     protected $fillable = [
         'user_id',

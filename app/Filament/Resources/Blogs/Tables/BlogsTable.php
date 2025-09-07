@@ -16,12 +16,10 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
-use Filament\Tables\Filters\QueryBuilder\Constraints\DateConstraint;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Date;
 use Kirschbaum\Commentions\Filament\Actions\CommentsAction;
 
 class BlogsTable
@@ -36,11 +34,11 @@ class BlogsTable
 
                 IconColumn::make('is_published')
                     ->label('Status')
-                    ->icon(fn(string $state): Heroicon => match ($state) {
+                    ->icon(fn (string $state): Heroicon => match ($state) {
                         '1' => Heroicon::OutlinedCheckCircle,
                         '0' => Heroicon::OutlinedClock,
                     })
-                    ->color(fn(string $state): string => match ($state) {
+                    ->color(fn (string $state): string => match ($state) {
                         '1' => 'success',
                         '0' => 'gray',
                     }),
@@ -93,21 +91,21 @@ class BlogsTable
                         return $query
                             ->when(
                                 $data['created_from'],
-                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
                             )
                             ->when(
                                 $data['created_until'],
-                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                             )
                             ->when(
                                 $data['updated_from'],
-                                fn(Builder $query, $date): Builder => $query->whereDate('updated_at', '>=', $date),
+                                fn (Builder $query, $date): Builder => $query->whereDate('updated_at', '>=', $date),
                             )
                             ->when(
                                 $data['updated_until'],
-                                fn(Builder $query, $date): Builder => $query->whereDate('updated_at', '<=', $date),
+                                fn (Builder $query, $date): Builder => $query->whereDate('updated_at', '<=', $date),
                             );
-                    })
+                    }),
             ])
             ->recordActions([
                 ViewAction::make(),
@@ -128,7 +126,7 @@ class BlogsTable
                     }),
 
                 CommentsAction::make()
-                    ->mentionables(User::all())
+                    ->mentionables(User::all()),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
@@ -140,14 +138,14 @@ class BlogsTable
                         ->color('success')
                         ->icon(Heroicon::OutlinedCheckCircle)
                         ->action(function ($records) {
-                            $records->each(fn($record) => $record->update(['is_published' => true]));
+                            $records->each(fn ($record) => $record->update(['is_published' => true]));
                         }),
 
                     BulkAction::make('draft')
                         ->color('warning')
                         ->icon(Heroicon::OutlinedCheckCircle)
                         ->action(function ($records) {
-                            $records->each(fn($record) => $record->update(['is_published' => false]));
+                            $records->each(fn ($record) => $record->update(['is_published' => false]));
                         }),
                 ]),
             ]);

@@ -16,7 +16,7 @@ class AdminLoginRule implements ValidationRule
     {
         $user = \App\Models\User::where('email', $value)->first();
 
-        if (!$user?->is_admin) {
+        if (! $user?->is_admin) {
             $fail('Only admin users can login here.');
         }
     }

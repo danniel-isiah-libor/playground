@@ -4,7 +4,6 @@ namespace App\Filament\Resources\Blogs\Schemas;
 
 use App\Models\User;
 use Filament\Infolists\Components\TextEntry;
-use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Database\Eloquent\Model;
 use Kirschbaum\Commentions\Filament\Infolists\Components\CommentsEntry;
@@ -21,7 +20,7 @@ class BlogInfolist
                 TextEntry::make('content')->html()->hiddenLabel(),
 
                 CommentsEntry::make('comments')
-                    ->mentionables(fn(Model $record) => User::all()),
+                    ->mentionables(fn (Model $record) => User::all()),
             ]);
     }
 }

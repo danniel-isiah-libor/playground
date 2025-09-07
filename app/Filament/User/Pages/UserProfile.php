@@ -4,7 +4,6 @@ namespace App\Filament\User\Pages;
 
 use Filament\Auth\Pages\EditProfile;
 use Filament\Forms\Components\FileUpload;
-use Filament\Pages\Page;
 use Filament\Schemas\Components\Component;
 use Filament\Schemas\Schema;
 use Illuminate\Validation\Rules\Password;

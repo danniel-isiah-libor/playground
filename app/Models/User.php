@@ -6,17 +6,16 @@ use Filament\Auth\MultiFactor\App\Contracts\HasAppAuthentication;
 use Filament\Auth\MultiFactor\App\Contracts\HasAppAuthenticationRecovery;
 use Filament\Auth\MultiFactor\Email\Contracts\HasEmailAuthentication;
 use Filament\Models\Contracts\FilamentUser;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Filament\Models\Contracts\HasAvatar;
 use Filament\Panel;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Kirschbaum\Commentions\Contracts\Commenter;
 
-class User extends Authenticatable implements Commenter, HasAvatar, FilamentUser, MustVerifyEmail, HasAppAuthentication, HasEmailAuthentication, HasAppAuthenticationRecovery
+class User extends Authenticatable implements Commenter, FilamentUser, HasAppAuthentication, HasAppAuthenticationRecovery, HasAvatar, HasEmailAuthentication, MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -43,7 +42,7 @@ class User extends Authenticatable implements Commenter, HasAvatar, FilamentUser
         'password',
         'remember_token',
         'app_authentication_secret',
-        'app_authentication_recovery_codes'
+        'app_authentication_recovery_codes',
     ];
 
     /**
